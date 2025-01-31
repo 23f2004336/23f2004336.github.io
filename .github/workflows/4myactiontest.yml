@@ -14,4 +14,3 @@ jobs:
 
       - name: 23f2004336@ds.study.iitm.ac.in
         run: echo "Hello, world!"
-ci: add GitHub Actions workflow
