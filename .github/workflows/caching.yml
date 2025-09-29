@@ -2,7 +2,7 @@ name: CI with Caching
 
 on:
   push:
-    branches: [ "main" ]
+    branches: ["main"]
   workflow_dispatch:
 
 jobs:
@@ -20,13 +20,13 @@ jobs:
         with:
           python-version: '3.11'
 
-      # Step 3: Cache Python dependencies
-      - name: Cache dependencies
-        uses: actions/cache@v4
+      # Step 3: Cache pip packages
+      - name: Cache pip
         id: cache-deps
+        uses: actions/cache@v4
         with:
-          path: ~/.cache/pip           # pip cache folder
-          key: cache-f9040b0           # fixed cache key as required
+          path: ~/.cache/pip
+          key: cache-f9040b0
 
       # Step 4: Install dependencies
       - name: Install dependencies
@@ -40,6 +40,11 @@ jobs:
       - name: prime-cache-f9040b0
         run: |
           if [[ "${{ steps.cache-deps.outputs.cache-hit }}" == "true" ]]; then
+            echo "Cache hit! Dependencies restored."
+          else
+            echo "Cache miss. Dependencies installed."
+          fi
+it }}" == "true" ]]; then
             echo "Cache hit! Dependencies restored."
           else
             echo "Cache miss. Dependencies installed."
