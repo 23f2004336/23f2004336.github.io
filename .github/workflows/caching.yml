@@ -10,28 +10,33 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # Step 1: Checkout repository
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      # Step 2: Setup Python
       - name: Setup Python
         uses: actions/setup-python@v4
         with:
           python-version: '3.11'
 
-      - name: Cache Python dependencies
+      # Step 3: Cache Python dependencies
+      - name: Cache dependencies
         uses: actions/cache@v4
         id: cache-deps
         with:
-          path: ~/.cache/pip
-          key: cache-f9040b0
+          path: ~/.cache/pip           # pip cache folder
+          key: cache-f9040b0           # fixed cache key as required
 
-      - name: Create virtual environment and install dependencies
+      # Step 4: Install dependencies
+      - name: Install dependencies
         run: |
           python -m venv venv
           source venv/bin/activate
           pip install --upgrade pip
           pip install -r requirements.txt
 
+      # Step 5: Prime cache step
       - name: prime-cache-f9040b0
         run: |
           if [[ "${{ steps.cache-deps.outputs.cache-hit }}" == "true" ]]; then
